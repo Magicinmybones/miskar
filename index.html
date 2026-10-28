@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1c0500">
+<title>Miskar — Arabian Attar</title>
+<meta name="description" content="Discover the timeless art of Arabian attar, thoughtfully curated for the modern connoisseur.">
+<style>
+/* ------------------------------------------------------------------
+   Fonts (embedded, latin subset) — Bebas Neue for the wordmark,
+   Hanken Grotesk for UI + display copy.
+------------------------------------------------------------------- */
+@font-face{font-family:"Bebas Neue";font-weight:400;font-style:normal;font-display:block;src:url(asset/font-a7c90c89240c134f.woff2) format("woff2")}
+@font-face{font-family:"Hanken Grotesk";font-weight:100 900;font-style:normal;font-display:block;src:url(asset/font-e9201eddf1d41d0b.woff2) format("woff2-variations"),url(asset/font-e9201eddf1d41d0b.woff2) format("woff2")}
+
+/* ------------------------------------------------------------------
+   Design tokens
+   --u  = one design pixel of the 1555 × 1011 reference frame.
+   On desktop/landscape the frame is scaled by the limiting axis so
+   proportions are exact; the background, shading and grid always
+   bleed to every viewport edge, so no letterbox bands ever appear.
+------------------------------------------------------------------- */
+:root{
+  --frame-w:1555;
+  --frame-h:1011;
+  --vh:1vh;
+  --u:min(calc(100vw / var(--frame-w)), calc(100 * var(--vh) / var(--frame-h)));
+
+  --ink:#ffffff;
+  --ink-soft:rgba(255,255,255,.96);
+  --rule:rgba(255,255,255,.5);
+  --bg:#1c0500;
+  --rail:rgb(43,9,0);
+  --btn-fill:rgba(52,12,0,.813);
+  --btn-glow:inset 0 0 17.5px rgba(255,196,173,.161);
+
+  --w-title:452;--w-lede:330;--w-nav:370;--w-btn:440;
+  --font-display:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-brand:"Bebas Neue","Oswald","Arial Narrow",Impact,sans-serif;
+}
+@supports (height:1dvh){:root{--vh:1dvh}}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink)}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:var(--font-display);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:geometricPrecision;overflow-x:hidden}
+img,svg{display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+ul{list-style:none;margin:0;padding:0}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid rgba(255,255,255,.8);outline-offset:3px}
+
+/* ==================================================================
+   HERO — shared skeleton
+   ================================================================== */
+.hero{position:relative;isolation:isolate;width:100%;min-height:calc(100 * var(--vh));overflow:hidden;background:var(--bg)}
+.hero__media,.shade{position:absolute;inset:0;pointer-events:none}
+.hero__media{z-index:-3}
+.hero__media img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.shade{z-index:-2}
+/* Tonal shading measured from the reference (normal blend, stacked in order) */
+.shade--x{background:linear-gradient(90deg,rgba(0,0,1,0.109) 0.000%,rgba(0,0,1,0.157) 7.143%,rgba(0,0,1,0.167) 14.286%,rgba(0,0,1,0.122) 21.429%,rgba(0,0,1,0.096) 28.571%,rgba(0,0,1,0.075) 35.714%,rgba(0,0,1,0.067) 42.857%,rgba(0,0,1,0.029) 50.000%,rgba(0,0,1,0.027) 57.143%,rgba(0,0,1,0.031) 64.286%,rgba(0,0,1,0.039) 71.429%,rgba(0,0,1,0.062) 78.571%,rgba(0,0,1,0.085) 85.714%,rgba(0,0,1,0.064) 92.857%,rgba(0,0,1,0.114) 100.000%)}
+.shade--y{background:linear-gradient(180deg,rgba(0,0,0,0.008) 0.000%,rgba(0,0,0,0.001) 8.309%,rgba(0,0,0,0.000) 16.617%,rgba(0,0,0,0.006) 25.025%,rgba(0,0,0,0.015) 33.333%,rgba(0,0,0,0.027) 41.642%,rgba(0,0,0,0.080) 50.049%,rgba(0,0,0,0.087) 58.358%,rgba(0,0,0,0.143) 62.315%,rgba(0,0,0,0.180) 67.260%,rgba(0,0,0,0.125) 72.305%,rgba(0,0,0,0.172) 77.151%,rgba(0,0,0,0.269) 82.097%,rgba(0,0,0,0.238) 87.043%,rgba(0,0,0,0.234) 91.988%,rgba(0,0,0,0.128) 96.934%,rgba(0,0,0,0.105) 100.000%)}
+.shade--glow{background:radial-gradient(65.045% 79.130% at -25.723% 91.113%,rgba(66,17,0,0.903) 0%,rgba(66,17,0,0.000) 100%)}
+.shade--floor{top:81.1078%;background:linear-gradient(90deg,rgba(23,5,0,0.105) 0.000%,rgba(23,5,0,0.078) 7.143%,rgba(23,5,0,0.041) 14.286%,rgba(23,5,0,0.119) 21.429%,rgba(23,5,0,0.116) 28.571%,rgba(23,5,0,0.800) 35.714%,rgba(23,5,0,1.000) 42.857%,rgba(23,5,0,0.837) 50.000%,rgba(23,5,0,0.757) 57.143%,rgba(23,5,0,0.462) 64.286%,rgba(23,5,0,0.075) 71.429%,rgba(23,5,0,0.014) 78.571%,rgba(23,5,0,0.000) 85.714%,rgba(23,5,0,0.338) 92.857%,rgba(23,5,0,0.000) 100.000%);
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000);mask-image:linear-gradient(180deg,transparent,#000)}
+
+/* Hairline grid */
+.rule{position:absolute;z-index:-1;background:var(--rule);pointer-events:none}
+
+/* Header */
+.site-header{position:absolute;z-index:5;left:0;right:0;top:0;display:flex;align-items:center}
+.brand{font-family:var(--font-brand);font-weight:400;line-height:1;white-space:nowrap}
+.nav-links{display:flex;font-weight:var(--w-nav)}
+.nav-links a{white-space:nowrap;transition:opacity .2s}
+.nav-links a:hover{opacity:.75}
+.tools{display:flex;align-items:center;margin-left:auto}
+.tool{display:grid;place-items:center;transition:opacity .2s}
+.tool:hover{opacity:.75}
+.tool svg{width:100%;height:100%;overflow:visible}
+.tool svg *{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round}
+.menu-toggle{display:none}
+
+/* Copy */
+.hero__title{margin:0;font-weight:var(--w-title);color:var(--ink)}
+.hero__title span{display:block}
+.hero__lede{margin:0;font-weight:var(--w-lede);color:var(--ink)}
+.cta-row{display:flex}
+.btn{position:relative;display:inline-flex;align-items:center;white-space:nowrap;font-weight:var(--w-btn);color:var(--ink);
+  background:var(--btn-fill);box-shadow:var(--btn-glow);transition:background-color .25s,box-shadow .25s}
+.btn::before{content:"";flex:none;border-radius:50%;background:var(--ink-soft)}
+.btn:hover{background-color:rgba(160,64,30,.32)}
+
+/* Product rail */
+.rail{display:flex;position:absolute;z-index:1}
+.rail::before{content:"";position:absolute;z-index:-1;left:0;top:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(44,9,0,0.094) 0.000%,rgba(44,9,0,0.178) 3.571%,rgba(44,9,0,0.283) 7.143%,rgba(44,9,0,0.446) 10.714%,rgba(44,9,0,0.439) 15.714%,rgba(44,9,0,0.392) 24.643%,rgba(44,9,0,0.622) 42.500%,rgba(44,9,0,0.889) 81.429%,rgba(44,9,0,0.914) 90.714%,rgba(44,9,0,0.902) 100.000%)}
+.rail__item{position:relative;flex:none;overflow:hidden}
+.rail__item img{position:absolute;max-width:none;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-origin:50% 50%}
+.rail__item:hover img{transform:scale(1.04)}
+.rail__item--1 img{left:-0.371%;top:0.065%;width:100.462%;height:100.932%;filter:url(#grade-1)}
+.rail__item--2 img{left:-0.000%;top:0.105%;width:100.042%;height:101.156%;filter:url(#grade-2)}
+.rail__item--3 img{left:-1.506%;top:0.403%;width:101.775%;height:101.611%;filter:url(#grade-3)}
+
+/* ==================================================================
+   FRAME MODE — desktop & landscape tablets (exact reference geometry)
+   ================================================================== */
+@media (min-width:1024px) and (min-height:600px) and (min-aspect-ratio:1/1){
+  html,body{height:100%;overflow:hidden}
+  .hero{height:calc(100 * var(--vh));min-height:0}
+
+  .shade--mobile{display:none}
+  .rule--v{top:0;bottom:0;left:calc(566 * var(--u));width:calc(2 * var(--u));background:linear-gradient(90deg,rgba(255,255,255,.2) 50%,rgba(255,255,255,.38) 50%)}
+  .rule--h{left:0;right:0;bottom:calc(380.5 * var(--u));height:calc(1 * var(--u))}
+
+  .site-header{height:calc(84 * var(--u));padding:0 calc(45 * var(--u))}
+  .brand{font-size:calc(46.6 * var(--u));letter-spacing:calc(-1.2 * var(--u));position:relative;top:calc(2.5 * var(--u));margin-left:calc(-2 * var(--u))}
+  .nav-links{margin-left:calc(54 * var(--u));gap:calc(23.6 * var(--u));font-size:calc(18.3 * var(--u));letter-spacing:calc(-0.38 * var(--u));line-height:1;position:relative;top:calc(0 * var(--u))}
+  .tools{gap:calc(17 * var(--u));position:relative;top:calc(0 * var(--u));margin-right:calc(-2 * var(--u))}
+  .tool{width:calc(28 * var(--u));height:calc(28 * var(--u))}
+  .tool svg *{stroke-width:1.9}
+
+  .hero__copy{position:absolute;left:calc(45 * var(--u));bottom:calc(48.3 * var(--u));width:calc(490 * var(--u))}
+  .hero__title{font-size:calc(67.85 * var(--u));line-height:calc(73 * var(--u));letter-spacing:calc(-2.64 * var(--u));margin-left:calc(-2 * var(--u))}
+  .hero__title .l2{letter-spacing:calc(-2.89 * var(--u))}
+  .hero__lede{margin-top:calc(12 * var(--u));font-size:calc(18.9 * var(--u));line-height:calc(24 * var(--u));letter-spacing:calc(-0.72 * var(--u));max-width:calc(477 * var(--u));margin-left:calc(0 * var(--u))}
+  .cta-row{margin-top:calc(22 * var(--u));gap:calc(15.3 * var(--u))}
+  .btn{--btn-glow:inset 0 0 calc(17.5 * var(--u)) rgba(255,196,173,.161);height:calc(47.4 * var(--u));font-size:calc(18.3 * var(--u));letter-spacing:calc(-0.55 * var(--u));padding:calc(2 * var(--u)) calc(0 * var(--u)) 0 calc(20.3 * var(--u));gap:calc(14 * var(--u))}
+  .btn--b{letter-spacing:calc(0.31 * var(--u))}
+  .btn--a{width:calc(209.6 * var(--u));margin-left:calc(-1.3 * var(--u))}
+  .btn--b{width:calc(145.8 * var(--u))}
+  .btn::before{width:calc(7 * var(--u));height:calc(7 * var(--u));transform:translateY(calc(-1 * var(--u)))}
+
+  .rail{right:calc(44 * var(--u));bottom:calc(52 * var(--u));gap:calc(16 * var(--u))}
+  .rail::before{right:calc(-44 * var(--u));bottom:calc(-52 * var(--u))}
+  .rail__item{height:calc(228 * var(--u))}
+  .rail__item--1{width:calc(325 * var(--u))}
+  .rail__item--2{width:calc(155 * var(--u))}
+  .rail__item--3{width:calc(155 * var(--u))}
+}
+
+/* ==================================================================
+   FLUID MODE — phones, portrait tablets, narrow windows
+   ================================================================== */
+@media not all and (min-width:1024px) and (min-height:600px) and (min-aspect-ratio:1/1){
+  .hero{display:flex;flex-direction:column;justify-content:flex-end;
+    padding:calc(env(safe-area-inset-top) + 92px) 0 calc(env(safe-area-inset-bottom) + 28px)}
+  .hero__media img{object-position:58% 30%}
+  .shade--x,.shade--y,.shade--glow,.shade--floor{display:none}
+  .shade--mobile{background:
+     linear-gradient(180deg,rgba(28,5,0,.72) 0,rgba(28,5,0,0) 22%,rgba(28,5,0,0) 34%,rgba(28,5,0,.55) 52%,rgba(30,6,0,.94) 74%,rgb(30,6,0) 100%)}
+
+  .rule--v{display:none}
+  .rule--h{left:0;right:0;top:calc(env(safe-area-inset-top) + 72px);height:1px;background:rgba(255,255,255,.28)}
+  .hero__copy::before{content:"";position:absolute;left:0;right:0;top:calc(-1 * clamp(22px,5vw,34px));height:1px;background:var(--rule)}
+
+  .site-header{height:72px;padding:env(safe-area-inset-top) clamp(16px,5vw,45px) 0;gap:16px}
+  .brand{font-size:36px;letter-spacing:-.042em;padding-top:2px}
+  .menu-toggle{display:grid;width:40px;height:40px;margin-right:-8px;place-items:center}
+  .menu-toggle span,.menu-toggle span::before,.menu-toggle span::after{content:"";display:block;width:20px;height:1.75px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .25s;position:relative}
+  .menu-toggle span::before{position:absolute;top:-6px}
+  .menu-toggle span::after{position:absolute;top:6px}
+  .site-header[data-open] .menu-toggle span{background:transparent}
+  .site-header[data-open] .menu-toggle span::before{transform:translateY(6px) rotate(45deg)}
+  .site-header[data-open] .menu-toggle span::after{transform:translateY(-6px) rotate(-45deg)}
+  .nav-links{position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:2px;
+    padding:12px clamp(16px,5vw,45px) 20px;font-size:20px;letter-spacing:-.02em;
+    background:rgba(28,5,0,.86);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);
+    border-bottom:1px solid rgba(255,255,255,.18);
+    opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .25s,transform .25s,visibility 0s .25s}
+  .nav-links a{display:block;padding:10px 0}
+  .site-header[data-open] .nav-links{opacity:1;visibility:visible;transform:none;transition:opacity .25s,transform .25s}
+  .tools{gap:14px}
+  .tool{width:26px;height:26px}
+  .tool svg *{stroke-width:1.9}
+
+  .hero__copy{position:relative;z-index:2;padding:0 clamp(16px,5vw,45px)}
+  .hero__copy{margin-top:clamp(22px,5vw,34px)}
+  .hero__title{font-size:clamp(40px,10.4vw,72px);line-height:1.06;letter-spacing:-.049em}
+  .hero__lede{margin-top:clamp(14px,3vw,22px);font-size:clamp(16px,4.2vw,19px);line-height:1.34;letter-spacing:-.03em;max-width:34em}
+  .cta-row{margin-top:clamp(20px,5vw,30px);gap:clamp(8px,2.5vw,12px);flex-wrap:wrap}
+  .btn{height:48px;padding:0 clamp(14px,4vw,20px) 0 clamp(14px,4vw,18px);gap:clamp(10px,3vw,14px);font-size:clamp(15px,4.2vw,17px);letter-spacing:-.025em}
+  .btn::before{width:7px;height:7px}
+
+  .rail{position:relative;margin-top:28px;padding:0 clamp(16px,5vw,45px);gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-padding:0 clamp(16px,5vw,45px)}
+  .rail::-webkit-scrollbar{display:none}
+  .rail::before{display:none}
+  .rail__item{scroll-snap-align:start;height:clamp(150px,40vw,240px)}
+  .rail__item--1{aspect-ratio:325/228}
+  .rail__item--2,.rail__item--3{aspect-ratio:155/228}
+}
+@media not all and (min-width:1024px) and (min-height:600px) and (min-aspect-ratio:1/1){
+  @media (min-width:700px){
+    .hero{padding-bottom:calc(env(safe-area-inset-bottom) + 44px)}
+    .rail{justify-content:flex-start}
+  }
+  @media (max-height:520px) and (orientation:landscape){
+    .hero{padding-top:88px}
+    .hero__title{font-size:clamp(34px,6vw,52px)}
+    .rail__item{height:150px}
+  }
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="grade-1" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.7858 0 0 0 0.0030  0 0.7777 0 0 0.0025  0 0 0.8013 0 0.0025  0 0 0 1 0"/></filter><filter id="grade-2" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.8976 0 0 0 0.0286  0 0.9099 0 0 0.0257  0 0 0.8663 0 0.0270  0 0 0 1 0"/></filter><filter id="grade-3" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.7846 0 0 0 0.0288  0 0.7565 0 0 0.0203  0 0 0.7580 0 0.0092  0 0 0 1 0"/></filter></defs></svg>
+<main class="hero" id="top">
+  <div class="hero__media" aria-hidden="true">
+    <img src="asset/image-147e91a8d7a7ff27.webp" alt="" width="1556" height="1011" fetchpriority="high" decoding="async">
+  </div>
+  <div class="shade shade--x" aria-hidden="true"></div>
+  <div class="shade shade--y" aria-hidden="true"></div>
+  <div class="shade shade--glow" aria-hidden="true"></div>
+  <div class="shade shade--floor" aria-hidden="true"></div>
+  <div class="shade shade--mobile" aria-hidden="true"></div>
+  <span class="rule rule--v" aria-hidden="true"></span>
+  <span class="rule rule--h" aria-hidden="true"></span>
+
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#top" aria-label="Miskar home">MISKAR</a>
+    <nav aria-label="Primary">
+      <ul class="nav-links" id="primaryNav">
+        <li><a href="#top">Home</a></li>
+        <li><a href="#products">All Products</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#new">New arrivals</a></li>
+        <li><a href="#gifts">Gift sets</a></li>
+      </ul>
+    </nav>
+    <div class="tools">
+      <a class="tool" href="#search" aria-label="Search">
+        <svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="12.5" cy="12.5" r="9.3"/><path d="M19.2 19.2 25 25"/></svg>
+      </a>
+      <a class="tool" href="#wishlist" aria-label="Wishlist">
+        <svg viewBox="0 0 28 28" aria-hidden="true"><path transform="translate(-0.4 0.5) scale(1.2 1.167)" vector-effect="non-scaling-stroke" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+      </a>
+      <a class="tool" href="#bag" aria-label="Shopping bag">
+        <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M8.4 7.5V6.6a5 5 0 0 1 10 0v.9"/><path d="M4.6 7.5h17.6a1.1 1.1 0 0 1 1.1 1.1V23a3 3 0 0 1-3 3H6.5a3 3 0 0 1-3-3V8.6a1.1 1.1 0 0 1 1.1-1.1Z"/></svg>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="primaryNav" aria-expanded="false" aria-label="Open menu"><span></span></button>
+    </div>
+  </header>
+
+  <div class="hero__copy">
+    <h1 class="hero__title"><span class="l1">Enter The World</span> <span class="l2">Of Miskar</span></h1>
+    <p class="hero__lede">Discover the timeless art of Arabian attar, thoughtfully curated for the modern connoisseur seeking something truly distinctive.</p>
+    <div class="cta-row">
+      <a class="btn btn--a" href="#collections">Explore Collections</a>
+      <a class="btn btn--b" href="#shop">Shop Now</a>
+    </div>
+  </div>
+
+  <ul class="rail" aria-label="Featured attars">
+    <li class="rail__item rail__item--1"><img src="asset/image-a7391e697607ff4a.webp" alt="Dark oud attar bottle with onion-dome cap resting on agarwood" width="1494" height="1053" decoding="async"></li>
+    <li class="rail__item rail__item--2"><img src="asset/image-00d987f66c58e86e.webp" alt="Luxury Oud Attar gift set with incense burner and frankincense" width="1028" height="1529" decoding="async"></li>
+    <li class="rail__item rail__item--3"><img src="asset/image-d36218b25ce59add.webp" alt="Demour Oud perfume bottle with gold cap and ornate box" width="1035" height="1520" decoding="async"></li>
+  </ul>
+</main>
+<script>
+(function(){
+  var h=document.getElementById('siteHeader'),b=h.querySelector('.menu-toggle');
+  b.addEventListener('click',function(){
+    var o=!h.hasAttribute('data-open');
+    o?h.setAttribute('data-open',''):h.removeAttribute('data-open');
+    b.setAttribute('aria-expanded',String(o));b.setAttribute('aria-label',o?'Close menu':'Open menu');
+  });
+  h.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener('click',function(){h.removeAttribute('data-open');b.setAttribute('aria-expanded','false');});});
+})();
+</script>
+</body>
+</html>
