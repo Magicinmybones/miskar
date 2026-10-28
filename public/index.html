@@ -204,6 +204,32 @@ ul{list-style:none;margin:0;padding:0}
   }
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* First-load entrance: foreground copy and product tiles only. */
+@keyframes miskar-soft{
+  from{opacity:0;transform:translate3d(0,8px,0)}
+  to{opacity:1;transform:none}
+}
+@keyframes miskar-line{
+  from{clip-path:inset(0 0 100% 0);transform:translate3d(0,13px,0)}
+  to{clip-path:inset(0 0 0 0);transform:none}
+}
+@keyframes miskar-tile{
+  from{opacity:0;transform:translate3d(0,12px,0) scale(.985)}
+  to{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .site-header .brand{animation:miskar-soft .58s cubic-bezier(.22,1,.36,1) .05s backwards}
+  .site-header nav{animation:miskar-soft .58s cubic-bezier(.22,1,.36,1) .14s backwards}
+  .site-header .tools{animation:miskar-soft .58s cubic-bezier(.22,1,.36,1) .2s backwards}
+  .hero__title .l1{animation:miskar-line .82s cubic-bezier(.19,1,.22,1) .32s backwards}
+  .hero__title .l2{animation:miskar-line .82s cubic-bezier(.19,1,.22,1) .45s backwards}
+  .hero__lede{animation:miskar-soft .62s cubic-bezier(.22,1,.36,1) .76s backwards}
+  .cta-row .btn--a{animation:miskar-soft .6s cubic-bezier(.22,1,.36,1) .98s backwards}
+  .cta-row .btn--b{animation:miskar-soft .6s cubic-bezier(.22,1,.36,1) 1.07s backwards}
+  .rail__item--1{animation:miskar-tile .75s cubic-bezier(.22,1,.36,1) .88s backwards}
+  .rail__item--2{animation:miskar-tile .75s cubic-bezier(.22,1,.36,1) 1.02s backwards}
+  .rail__item--3{animation:miskar-tile .75s cubic-bezier(.22,1,.36,1) 1.16s backwards}
+}
 </style>
 </head>
 <body>
